@@ -6,9 +6,8 @@ from package_index import fetch_package, PackageIndexError
 
 
 def test_fetch_self():
-    # TODO:mdrachuk:9/18/19: change to package-index
-    package = fetch_package('serious')
-    assert package.contains_version('1.0.0.dev20')
+    package = fetch_package('package-index')
+    assert package.contains_version('1.0.0b1')
 
 
 def test_non_existing():
