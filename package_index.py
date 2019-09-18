@@ -6,7 +6,7 @@ Warehouse: https://github.com/pypa/warehouse
 """
 from __future__ import annotations
 
-__version__ = '1.0.0b3'
+__version__ = '1.0.0b4'
 __author__ = 'Misha Drachuk'
 __license__ = 'MIT'
 
