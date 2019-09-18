@@ -1,6 +1,3 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
@@ -32,7 +29,7 @@ stages:
               python.version: '3.7'
         steps:
           - template: .use-python.yml
-          - script: mypy package-index
+          - script: mypy package_index.py
             displayName: 'Check typings'
 
       - job: Version
@@ -44,7 +41,7 @@ stages:
               python.version: '3.7'
         steps:
           - template: .use-python.yml
-          - script: ./package-index package-index
+          - script: cv package_index
             displayName: 'Check version changed'
 
   - stage: Publish
@@ -81,7 +78,7 @@ stages:
           - script: git checkout master
             displayName: 'Checkout master'
 
-          - script: pytest tests.py  --cov=package-index --cov-report=html
+          - script: pytest tests.py  --cov=package_index.py --cov-report=html
             displayName: 'Test with coverage'
 
           - script: coveralls

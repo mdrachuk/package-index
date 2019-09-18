@@ -14,7 +14,7 @@ setup(
     py_modules=['package_index'],
     author='mdrachuk',
     author_email='misha@drach.uk',
-    description="Check version of a Python module",
+    description="Dataclasses API for PyPI and other warehouses.",
     long_description=readme(),
     long_description_content_type='text/markdown',
     url="https://github.com/mdrachuk/package-index",

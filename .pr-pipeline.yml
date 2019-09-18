@@ -29,7 +29,7 @@ stages:
               python.version: '3.7'
         steps:
           - template: .use-python.yml
-          - script: mypy package-index
+          - script: mypy package_index.py
             displayName: 'Check typings'
 
       - job: Version
@@ -41,7 +41,7 @@ stages:
               python.version: '3.7'
         steps:
           - template: .use-python.yml
-          - script: ./package-index package-index
+          - script: cv package_index
             displayName: 'Check version changed'
 
   - stage: Report
