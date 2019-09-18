@@ -59,7 +59,7 @@ stages:
           - script: git checkout $(System.PullRequest.SourceBranch)
             displayName: 'Checkout branch'
 
-          - script: pytest tests.py --cov=package_index.py --cov-report=html
+          - script: pytest tests.py --cov=package_index --cov-report=html
             displayName: 'Test with coverage'
 
           - script: coveralls
