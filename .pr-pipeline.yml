@@ -1,0 +1,72 @@
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger: none
+pr:
+  - master
+  - dev
+
+stages:
+  - stage: Check
+    jobs:
+      - job: Tests
+        pool:
+          vmImage: 'Ubuntu-16.04'
+        strategy:
+          matrix:
+            Python37:
+              python.version: '3.7'
+        steps:
+          - template: .use-python.yml
+          - script: pytest tests.py
+            displayName: 'Test'
+
+      - job: Typings
+        pool:
+          vmImage: 'Ubuntu-16.04'
+        strategy:
+          matrix:
+            Python37:
+              python.version: '3.7'
+        steps:
+          - template: .use-python.yml
+          - script: mypy package-index
+            displayName: 'Check typings'
+
+      - job: Version
+        pool:
+          vmImage: 'Ubuntu-16.04'
+        strategy:
+          matrix:
+            Python37:
+              python.version: '3.7'
+        steps:
+          - template: .use-python.yml
+          - script: ./package-index package-index
+            displayName: 'Check version changed'
+
+  - stage: Report
+    jobs:
+      - job: TestCoverage
+        pool:
+          vmImage: 'Ubuntu-16.04'
+        strategy:
+          matrix:
+            Python37:
+              python.version: '3.7'
+        steps:
+          - template: .use-python.yml
+
+          - script: git checkout $(System.PullRequest.SourceBranch)
+            displayName: 'Checkout branch'
+
+          - script: pytest tests.py --cov=package_index.py --cov-report=html
+            displayName: 'Test with coverage'
+
+          - script: coveralls
+            displayName: 'Save code coverage'
+            env:
+              COVERALLS_REPO_TOKEN: $(COVERALLS_REPO_TOKEN)
+    dependsOn:
+      - Check
+    condition: succeeded('Check')
+
