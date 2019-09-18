@@ -78,7 +78,7 @@ stages:
           - script: git checkout master
             displayName: 'Checkout master'
 
-          - script: pytest tests.py  --cov=package_index.py --cov-report=html
+          - script: pytest tests.py  --cov=package_index --cov-report=html
             displayName: 'Test with coverage'
 
           - script: coveralls
