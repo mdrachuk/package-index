@@ -1,5 +1,5 @@
 coveralls>=1.8.2
-cv==1.0.0.dev8
+cv>=1.0.0rc0
 mypy>=0.720
 pytest>=4.4.1
 pytest-cov>=2.6.1
